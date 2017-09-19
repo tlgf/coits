@@ -3,45 +3,75 @@
 % author: T Flynn
 
 \documentclass{beamer}
+\usepackage{graphicx}
 
-\begin{document}
+\title{CANopen in the Shell}
+\subtitle{Managing and Developing CANopen Applications on Linux}
+\author{Thomas Flynn}
+
+\usetheme{AnnArbor}
+\usecolortheme{dolphin}
+
+\mode<presentation>{
+\begin{document} 
 
 % title page
   \begin{frame}
-    \frametitle{CANopen in the Shell}
-    % CANopen logo
-    % GITS meme
+    \framesubtitle{\textbf{S}ydney \textbf{L}inux \textbf{U}ser \textbf{Group}}
+    
+    \titlepage
   \end{frame}
+
   
+\section{Introduction}
+
 % informal intro  
-  \begin{frame}
+\subsection{About me}
+\begin{frame}
     \frametitle{Introduction}
+    \huge{About Me (Tom Flynn):}
     \begin{itemize}
       \item{BEng. Mechatronics}
       \item{Linux User}
       \item{Industrial Electronics}
-      \item{Systems Engineer}
+      \item{Engineer}
     \end{itemize}
     \end{frame}
   
 % formal intro  
-  \begin{frame}
-    \frametitle{Outline}
+  \begin{frame}{Outline}
     \begin{enumerate}
-      \item{Controller Area Networks - What, Why, How?}
-      \item{Unleash the Protocols}
-      \item{CAN and the Kernel}
-      \item{The CAN <<FOSS>> Tool Kit}
-      \item{d}
+    \item{Controller Area Networks - What, Why, How?}
+      \pause
+    \item{Unleash the Protocols}
+      \pause
+    \item{CAN and the Kernel}
+      \pause
+    \item{The CAN FOSS Tool Kit}
+      \pause
+      \item{Smooth and Unproblematic Demonstration}
    \end{enumerate}        
+\end{frame}
+
+  % funny
+    \begin{frame}
+    \frametitle{GNU Image Manipulation}
+    \begin{center}
+    \includegraphics[width=7.5cm,height=7.5cm, keepaspectratio]{./images/title_slide}  
+    \end{center}
+   
+    \end{frame}
+
+
     
+  
+% Empty Template
+\begin{frame}
+    \frametitle{}
+    \framesubtitle{}
+    %content goes here
   \end{frame}
 
-% CAN
-\begin{frame}
-    \frametitle{d}
-    \framesubtitle{A bit more information about this}
-    %More content goes here
-  \end{frame}
-  
+
+}
 \end{document}
