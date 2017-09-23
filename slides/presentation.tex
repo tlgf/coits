@@ -4,6 +4,28 @@
 
 \documentclass{beamer}
 \usepackage{graphicx}
+\usepackage{xpatch}
+\usepackage{xcolor}
+\usepackage{amsthm}
+
+% From https://tex.stackexchange.com/questions/11954/
+\newcommand {\framedgraphic}[2] {
+    \begin{frame}{#1}
+        \begin{center}
+            \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{#2}
+        \end{center}
+    \end{frame}
+}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamercolor*{block title}{fg=blue!100,
+  bg= blue!10}
+\setbeamercolor*{block body}{fg= blue,
+bg= blue!5}
+
+\makeatletter
+\patchcmd\beamer@@tmpl@frametitle{\insertframetitle}{\insertsection$ $- \insertframetitle}{}{}
+\makeatother
 
 \title{CANopen in the Shell}
 \subtitle{Managing and Developing CANopen Applications on Linux}
@@ -23,13 +45,12 @@
   \end{frame}
 
   
-\section{Introduction}
+\section*{Introduction}
 
 % informal intro  
-\subsection{About me}
+\subsection*{About me}
 \begin{frame}
-    \frametitle{Introduction}
-    \huge{About Me (Tom Flynn):}
+    \huge{Me (Tom Flynn):}
     \begin{itemize}
       \item{BEng. Mechatronics}
       \item{Linux User}
@@ -38,7 +59,8 @@
     \end{itemize}
     \end{frame}
   
-% formal intro  
+% formal intro
+\subsection*{Overview}
   \begin{frame}{Outline}
     \begin{enumerate}
     \item{Controller Area Networks - What, Why, How?}
@@ -52,26 +74,55 @@
       \item{Smooth and Unproblematic Demonstration}
    \end{enumerate}        
 \end{frame}
-
+  
   % funny
+  \framedgraphic{GNU Image Manipulation}{./images/title_slide}
+
+
+
+  \section{Controller Area Networks - What, Why, How?}
     \begin{frame}
-    \frametitle{GNU Image Manipulation}
-    \begin{center}
-    \includegraphics[width=7.5cm,height=7.5cm, keepaspectratio]{./images/title_slide}  
-    \end{center}
-   
+      \begin{Huge}{A Timeline:}\end{Huge}
+      \begin{itemize}
+      \item{\textbf{1980s} Continuing increase of electronic sensors in vehicles. Signalling limited by environmental noise, complexity of wiring, limited I/O on controllers.}
+        \pause
+        \item{\textbf{1983} Development of the CAN bus concept at Robert Bosch GmbH}
+          \pause
+        \item{\textbf{1986} CAN bus 'protocol' released at SAE conference.}
+          \pause
+        \item{\textbf{1987} First CAN transceiver chips released by Intel and Phillips}
+          \pause
+        \item{\textbf{1988} First Production vehicle to feature CAN-based system.}
+          \pause
+        \item{\textbf{1993} ISO CAN standard released, ISO 11898}
+          \pause
+        \item{\textbf{1995} CAN in Automation (CiA) release CiA 301, CANopen application layer and communication profile -  $Members Only$.}
+          \pause
+        \item{\textbf{2011} CiA 301 V 4.2 made public - $Open$}
+      \end{itemize}
+  \end{frame}
+
+% Empty Template
+    
+    \begin{frame}  
+      \begin{block}{What is a Controller Area Network?}
+        A \textcolor{green}{network} of \textcolor{red}{nodes} \textcolor{magenta}{exchanging} \textcolor{orange}{messages}.
+      \end{block}      
     \end{frame}
 
+    \framedgraphic{Network}{./images/generic_network}
 
-    
-  
-% Empty Template
-\begin{frame}
-    \frametitle{}
-    \framesubtitle{}
-    %content goes here
-  \end{frame}
+    \framedgraphic{Exchange}{./images/can_signaling}
+
+    \framedgraphic{Messages}{./images/CAN-Bus-frame_in_base_format_without_stuffbits}
+%% % Empty Template
+%% \begin{frame}
+%%     \frametitle{}
+%%     \framesubtitle{}
+%%     %content goes here
+%%   \end{frame}
 
 
 }
 \end{document}
+
