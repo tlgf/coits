@@ -65,9 +65,11 @@ bg= blue!5}
     \begin{enumerate}
     \item{Controller Area Networks - What, Why, How?}
       \pause
-    \item{Cometh the Application Layer}
+    \item{Peeking at Protocols}
       \pause
     \item{CAN Support in the Kernel}
+      \pause
+    \item{Cometh the Application Layer}
       \pause
     \item{The CANopen FOSS Tool Kit}
       \pause
@@ -136,10 +138,10 @@ bg= blue!5}
     \framedgraphic{Messages}{./images/CAN-Bus-frame_in_base_format_without_stuffbits}
 
     \begin{frame}{Theory to Practice}
-      To implement the hardware of a CAN-based device, we need to provide the L1 and L2 features.\\
+      To implement the hardware of a CAN-based device, we need to provide the L1 and L2 features.\\ \pause
       Two Options:
       \begin{enumerate}
-      \item{Use a standalone IC that covers both L1 and L2 requirements $OR$}
+      \item{Use a standalone IC that covers both L1 and L2 requirements $OR$}\pause
       \item{Use an SoC/MCU with built in CAN module (L2) and possibly a transceiver IC (L1)}
       \end{enumerate}
       \end{frame}
@@ -164,7 +166,9 @@ bg= blue!5}
      \framedgraphic{Example - TI ISO1050}{./images/ISO1050_blockdiagram}
      
      \framedgraphic{Solution with ISO1050}{./images/ISO1050_soln}
-     \section{Cometh the Protocols}
+
+     
+     \section{Peeking at Protocols}
      \begin{frame}{Moving up the Stack}
        \huge
        \textbf{Q: What to do with all this reliable L1 and L2 infrastructure?}\\\pause
@@ -191,13 +195,53 @@ bg= blue!5}
        \end{itemize}
      \end{frame}
 
+
+          %%%%%
+     
+     \section{CAN in the Kernel}
+
+     \begin{frame}
+       \textbf{Road Block:} Before we can write application code (e.g. implement a protocol-compliant application), we need an API to talk to the CAN hardware/network.\pause
+
+       \centering{\includegraphics[height=5cm, width=5cm, keepaspectratio=true]{./images/socket_can}}
+       
+     \end{frame}
+
+     \begin{frame}
+       SocketCAN:
+       \begin{itemize}
+       \item{\textbf{2008} 2.6.25 Linux Kernel - Patched with CAN support}\pause
+       \item{Known as Socket CAN (\texttt{linux\textbackslash can\textbackslash core.h}), contributed by Urs Thuermann, Oliver Hartkopp + More from Volkswagen Group Electronic Research}\pause
+         \item{Previous CAN drivers used 'Character Device Driver' - somewhat of a hack}\pause
+         \item{SocketCAN works within the Kernel's generic networking framework e.g. \texttt{\#include sys\textbackslash socket.h}, protocol family \texttt{PF\_CAN}}
+       \end{itemize}         
+     \end{frame}
+
+     \framedgraphic{Generic Linux Network Stack}{./images/linux_network_generic}
+     \framedgraphic{PF\_CAN}{./images/linux_network_CAN}
+     %%%%%
+
+\section{CANopen}
+     
      \begin{frame}{CANopen Protocol}
        \begin{quotation}
-         CANopen provides several communication objects, which enable device designers to implement desired network behavior into a device. With these communication objects, device designers can offer devices that can communicate process data, indicate device-internal error conditions or influence and control the network behavior.
+         CANopen provides several communication \textcolor{red}{objects}, which enable device designers to implement desired network behavior into a device. With these communication objects, device designers can offer devices that can communicate process data, indicate device-internal error conditions or influence and control the network behavior.
          \end{quotation}
-       
+       \raggedright{- \textbf{CAN in Automation} description of CANopen}
        \end{frame}
-       
+
+     \begin{frame}{CANopen Protocol}
+       Key concepts:
+       \begin{enumerate}
+       \item{The \textbf{Object Dictionary} (OD)}\pause
+       \item{CAN Frames are called \textbf{messages}}\pause
+       \item{Messages are \textbf{Communication Objects}}\pause
+       \item{Master+Slave / Client+Server functionality}\pause
+       \item{Network Management (\textbf{NMT}) $\Rightarrow$ one node to rule them all}
+       \end{enumerate}
+     \end{frame}
+
+     
      
 %% % Empty Template
 %% \begin{frame}
