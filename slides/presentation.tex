@@ -7,6 +7,7 @@
 \usepackage{xpatch}
 \usepackage{xcolor}
 \usepackage{amsthm}
+%\usepackage{hyperref}
 
 % From https://tex.stackexchange.com/questions/11954/
 \newcommand {\framedgraphic}[2] {
@@ -236,21 +237,79 @@ bg= blue!5}
        \item{The \textbf{Object Dictionary} (OD)}\pause
        \item{CAN Frames are called \textbf{messages}}\pause
        \item{Messages are \textbf{Communication Objects}}\pause
-       \item{Master+Slave / Client+Server functionality}\pause
-       \item{Network Management (\textbf{NMT}) $\Rightarrow$ one node to rule them all}
+       \item{6 Message types are defined}\pause
+       \item{Network Management (\textbf{NMT}) $\Rightarrow$ one node to rule them all [not necessarily!]}  \pause
+       \item{Network nodes  adhere to an 'NMT State Machine', defined in CiA 301}\pause
+       \item{Client (Network manager) + Server (network nodes/devices) functionality}
+       
        \end{enumerate}
      \end{frame}
 
-     
-     
-%% % Empty Template
-%% \begin{frame}
-%%     \frametitle{}
-%%     \framesubtitle{}
-%%     %content goes here
-%%   \end{frame}
+     % object dictionary stuff
+     \framedgraphic{Object Dictionary}{./images/object_dictionary}
+     \framedgraphic{Object Dictionary}{./images/object_dictionary_ac}
 
+     \framedgraphic{Device State and Network Management}{./images/NMT_states}
+     
+     %\framedgraphic{Electronic Data Sheet}{./images/eds}
+     % messages
+     \begin{frame}{Communication Objects}
+       Messages are Categorised into 6 types:
+       \begin{enumerate}
+       \item{Boot-Up}\pause
+       \item{Service Data Object (\textbf{SDO})}\pause
+       \item{Emergency (\textbf{EMCY})}\pause
+       \item{SYNC/TIME}\pause
+       \item{Heartbeat/Nodeguard}\pause
+       \item{Process Data Object (\textbf{PDO})}
+       \end{enumerate}  
+     \end{frame}
 
+     \begin{frame}{Communication Objects}
+       We can determine which type of message we are receiving by examining the CAN ID field (aka arbitration field) in the CAN Frame:
+
+       \centering{\includegraphics[height=7cm, width=7cm, keepaspectratio=true]{./images/COB_IDs}}
+       \end{frame}
+
+     \begin{frame}{Service Data Objects}
+       SDOs work around a request/response model. Provide generic access method to Object Dictionary.
+     \end{frame}
+
+     \framedgraphic{Service Data Objects - Example}{./images/sdo_comms}
+     
+     \begin{frame}{Process Data Objects}
+       PDOs are transmitted by devices according to their configuration:
+       \begin{itemize}
+       \item{Event Driven}\pause
+       \item{Time Driven}\pause
+       \item{Individual Polling}\pause
+       \item{Synchronised, Group polling}
+       \end{itemize}
+     \end{frame}
+     \framedgraphic{Process Data Objects - Example}{./images/pdo_comms}
+
+\section{FOSS CAN Tools}
+\begin{frame}
+  There are numerous FOSS libraries for writing custom CANopen applications along with user-space tools for device development, network maintenance and monitoring. \\
+\end{frame}
+
+\begin{frame}{Some of the Options}
+  \begin{description}
+  \item[\href{https://github.com/CANopenNode}{CANopenNode}]{\texttt{C} Library to implement a node. Includes object dictionary implementation, methods to send/receive all message types}\pause
+  \item[\href{http://canopen.readthedocs.io/en/latest/}{can-open}]{\texttt{python }{Another library to implement a node. Object Dictionary can be supplied as text file. Includes \texttt{socketCAN} api.}}\pause
+    \item[\href{https://github.com/linux-can/can-utils}{can-utils}]{User space tools to interact/observe a CAN network through the \texttt{socketCAN} layer. Example - \texttt{candump}, dumps CAN frames.}
+    \end{description}
+\end{frame}  
+
+\section{Demonstration}
+
+\begin{frame}{CANopen Joystick}
+  \includegraphics[height=7cm, width=7cm, keepaspectratio=true]{./images/CDlogo}
+  \includegraphics[height=5cm, width=5cm, keepaspectratio=true]{./images/cdjcanopen}
+\end{frame}
+
+\framedgraphic{Setup}{./images/setup}
+ 
 }
 \end{document}
 
